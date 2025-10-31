@@ -31,8 +31,6 @@
 }
 
 /* Desktop menu */
-.desktopHeader {
-}
 .mainMenu {
   display: flex;
   list-style: none;
@@ -40,9 +38,6 @@
   margin: 0;
   margin-left: 5rem;
   padding: 0;
-}
-
-.mainMenuItem {
 }
 
 .mainMenuItem a {
