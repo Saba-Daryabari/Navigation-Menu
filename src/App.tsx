@@ -4,6 +4,7 @@ import "./App.css";
 import MobileMenu from "./MobileMenu";
 import Menu from "./Menu";
 import { IoIosMenu, IoIosSearch, IoMdPerson } from "react-icons/io";
+import SearchBar from "./SearchBar";
 export interface MenuNode {
   title: string;
   url: string;
@@ -13,6 +14,10 @@ export interface MenuNode {
 
 function App() {
   const [openMobile, setOpenMobile] = useState<boolean>(false);
+  const [isSearchOpen, setIsSearchOpen] = useState<boolean>(false);
+  const toggleSearch = () => {
+    setIsSearchOpen(!isSearchOpen);
+  };
   const MenuItems: MenuNode[] = [
     {
       title: "Furniture",
@@ -203,23 +208,32 @@ function App() {
 
   return (
     <div className="navigation">
-      <div className={`header `}>
-        <a href="#" className="logo">
-          <img src={logo} alt="logo" />
-        </a>
-        <div className="desktopHeader">
-          <Menu menuData={MenuItems} />
-        </div>
-
-        <div className="searchIcon">
-          <IoIosSearch />
-        </div>
-        <div className="loginIcon">
-          <IoMdPerson />
-        </div>
-        <div onClick={() => toggleMenu()} className="menuIcon">
-          <IoIosMenu />
-        </div>
+      <div className="header">
+        {isSearchOpen ? (
+          <SearchBar
+            isVisible={isSearchOpen}
+            onClose={() => setIsSearchOpen(false)}
+            menuData={MenuItems}
+          />
+        ) : (
+          <>
+            <a href="#" className="logo">
+              <img src={logo} alt="logo" />
+            </a>
+            <div className="desktopHeader">
+              <Menu menuData={MenuItems} />
+            </div>
+            <div className="searchIcon">
+              <IoIosSearch onClick={() => toggleSearch()} />
+            </div>
+            <div className="loginIcon">
+              <IoMdPerson />
+            </div>
+            <div onClick={() => toggleMenu()} className="menuIcon">
+              <IoIosMenu />
+            </div>
+          </>
+        )}
       </div>
       <div className={`${openMobile && "mobileHeader"}`}>
         {openMobile && <MobileMenu menuData={MenuItems} />}
